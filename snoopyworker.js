@@ -1,12 +1,12 @@
-// Snoopy Worker
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-client.login(config.token) // Replace XXXXX with your bot token
+const fs = require("fs");
+client.login("NjgyNDU1MjAwMjEyMDU4MTQ0.XlmNcg.emhFhhHyvTqz5aq45RJSKUfatk4") // Replace XXXXX with your bot token
 
 client.on('ready', () => {
     // Set bot status to: "Playing with JavaScript"
-    client.user.setActivity("with Snoopy!")
+    client.user.setActivity("SNOOPY WORKER 2.0!", {type: "LISTENING"})
 
     // Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
@@ -14,19 +14,6 @@ client.on('ready', () => {
     // client.user.setActivity("TV", {type: "WATCHING"})
 })
 
-// Set the prefix
-let prefix = "!!";
-client.on("message", (message) => {
-  // Exit and stop if the prefix is not there or if user is a bot
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
- 
-  if (message.content.startsWith(prefix + "warn")) {
-    message.channel.send("Sorry! Warn command isn't available on SnoopyOS 1.0!");
-  } else
-  if (message.content.startsWith(prefix + "Warn")) {
-    message.channel.send("Sorry! Warn command isn't available on SnoopyOS 1.0!");
-  }
-});
 console.log("Snoopy Worker has loaded!")
 client.on("message", message => {
     if (message.author.bot) return;
@@ -37,7 +24,7 @@ client.on("message", message => {
     const user = message.mentions.users.first();
     const talkedRecently = new Set();
     if(command === "say") {
-    if(!message.member.roles.some(r=>["Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+    if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
         return message.reply("Sorry, you don't have permissions to use this!");
         let text = args.join(" ");
         message.delete();
@@ -63,13 +50,64 @@ client.on("message", message => {
     } else
     if (message.content.startsWith(config.prefix + "banmemami")) {
       message.reply("https://imgur.com/a/XNIFUJl")
-    }
+    } else
     if(message.content.startsWith(config.prefix + 'rip')) {
         message.channel.send('https://gph.is/g/4MWX3bx');
     } else
     if(message.content.startsWith(config.prefix + 'cry')) {
         message.channel.send('https://media.giphy.com/media/jnQYWZ0T4mkhCmkzcn/giphy.gif')
     } else
+    if (message.content.startsWith("k")) {
+      message.delete();
+      message.reply("Not on my watch!");
+      client.channels.get("618125415134920848").send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Warning Action",
+        fields: [{
+            name: "Moderator",
+            value: `${message.author.tag}`
+          },
+          {
+            name: "User warned",
+            value: `${user}`
+          },
+          {
+            name: "Reason",
+            value: `${reason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Snoopy Worker"
+        }
+      }
+    });
+      message.channel.send({embed: {
+        color: 15844367,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "WARNING",
+            fields: [{
+            name: "Warning!",
+            value: `**AUTOMATIC AGENCY MODERATION**, User ${message.author.tag} has been warned for **"k" is not allowed!**.`
+          }
+        ],
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Warning Action"
+        }
+      }
+    });;
+
+
+    }
     if (message.content.startsWith(config.prefix + 'tea')) {
         message.channel.send('https://gph.is/1IFn5eh')
     } else
@@ -78,7 +116,7 @@ client.on("message", message => {
         color: 15844367,
         description: `This server has **${client.channels.size}** channels!`
       }});
-    }
+    } else
     if (message.content.startsWith(config.prefix + 'avatar')) {
         message.channel.send(message.author.avatarURL)
     } else
@@ -93,30 +131,327 @@ client.on("message", message => {
     
       // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
       let member = message.mentions.members.first();
-      if(!message.member.roles.some(r=>["Trial Mod", "Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+      if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
       return message.reply("Sorry, you don't have permissions to use this!");
+      if(!member)
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
+      // or the person who made the command: let member = message.member;
+      let reason = args.slice(1).join(' ');
+          if(!reason) reason = "No reason provided";
+      // Add the role!
+      member.addRole(role).catch(console.error)
+      message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Mute Action",
+        fields: [{
+            name: "Moderator",
+            value: `${message.author.tag}`
+          },
+          {
+            name: "User muted",
+            value: `${user}`
+          },
+          {
+          name: "Reason",
+            value: `${reason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Snoopy Worker"
+        }
+      }
+    });
+    } else
+    if (message.content.startsWith(config.prefix + "grant")) {
+      let reason = args.slice(1).join(' ');
+          if(!reason)
+          return message.reply("Please mention a valid role to grant!");
+      let role = message.guild.roles.find(r => r.name === `${reason}`);
+    
+      // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
+      let member = message.mentions.members.first();
+      if(!message.member.roles.some(r=>["《Developer》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+      return message.reply("Sorry, you don't have permissions to use this!");
+      if(!member)
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
       // or the person who made the command: let member = message.member;
       
       // Add the role!
       member.addRole(role).catch(console.error)
-      message.channel.send(`${user} has been muted by ${message.author}`);
-    } else
-    if (message.content.startsWith(config.prefix + "unmute")) {
-      let role = message.guild.roles.find(r => r.name === "Muted");
+      message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Grant Action",
+        fields: [{
+            name: "Moderator",
+            value: `${message.author.tag}`
+          },
+          {
+            name: "Role granted to:",
+            value: `${user}`
+          },
+          {
+          name: "Role Granted",
+            value: `${reason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Snoopy Worker"
+        }
+      }
+    });
+  } else
+  if (message.content.startsWith(config.prefix + "ungrant")) {
+    let reason = args.slice(1).join(' ');
+        if(!reason)
+        return message.reply("Please mention a valid role to ungrant!");
+    let role = message.guild.roles.find(r => r.name === `${reason}`);
+  
+    // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
+    let member = message.mentions.members.first();
+    if(!message.member.roles.some(r=>["《Developer》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+    return message.reply("Sorry, you don't have permissions to use this!");
+    if(!member)
+          return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
+    // or the person who made the command: let member = message.member;
+    
+    // Add the role!
+    member.removeRole(role).catch(console.error)
+    message.channel.send({embed: {
+      color: 3447003,
+      author: {
+        name: client.user.username,
+        icon_url: client.user.avatarURL
+      },
+      title: "Ungrant Action",
+      fields: [{
+          name: "Moderator",
+          value: `${message.author.tag}`
+        },
+        {
+          name: "Role ungranted to:",
+          value: `${user}`
+        },
+        {
+        name: "Role Ungranted",
+          value: `${reason}`
+        }
+      ],
+      timestamp: new Date(),
+      footer: {
+        icon_url: client.user.avatarURL,
+        text: "Snoopy Worker"
+      }
+    }
+  });
+} else
+if (message.content.startsWith(config.prefix + "hitlist")) {
+  if(!message.member.roles.some(r=>["《Developer》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+      return message.reply("You can\'t do that!");
+  let member = message.mentions.members.first();
+  let reason = args.slice(1).join(' ');
+  if(!member)
+          return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
+  if(!reason)
+    return message.reply("Mention someone to add to **THE HITLIST**");
+  message.channel.send({embed: {
+    color: 15844367,
+    description: `${member} has been added to **ADMINISTATOR HITLIST** for **${reason}**!`
+  }});
+  client.channels.get("618125415134920848").send({embed: {
+    color: 3447003,
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "HITLIST Action",
+    fields: [{
+        name: "Administrator",
+        value: `${message.author.tag}`
+      },
+      {
+        name: "User added to the HITLIST",
+        value: `${user}`
+      },
+      {
+        name: "Reason",
+        value: `${reason}`
+      }
+    ],
+    timestamp: new Date(),
+    footer: {
+      icon_url: client.user.avatarURL,
+      text: "AGENT SNOOPY"
+    }
+  }
+});
+} else
+  if (message.content.startsWith(config.prefix + "unmute"))
+    {let role = message.guild.roles.find(r => r.name === "Muted");
     
       // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
       let member = message.mentions.members.first();
-      if(!message.member.roles.some(r=>["Trial Mod", "Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-      return message.reply("Sorry, you don't have permissions to use this!");
+      if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+      return message.reply("You can\'t do that!");
+      if(!member)
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
       // or the person who made the command: let member = message.member;
-      
+      let reason = args.slice(1).join(' ');
+          if(!reason) reason = "No reason provided";
       // Remove a role!
       member.removeRole(role).catch(console.error)
-      message.channel.send(`${user} has been unmuted by ${message.author}`);
-    } else
+      message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Unmute Action",
+        fields: [{
+            name: "Moderator",
+            value: `${message.author.tag}`
+          },
+          {
+            name: "User unmuted",
+            value: `${user}`
+          },
+          {
+            name: "Reason",
+            value: `${reason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Snoopy Worker"
+        }
+      }
+    });
+  } else
     if (message.content.startsWith(config.prefix + "lmao")) {
         message.channel.send("https://gph.is/g/469ALg8")
     } else
+    if (message.content.startsWith(config.prefix + "warn")) {
+      let reason = args.slice(1).join(' ');
+      let user = message.mentions.members.first();
+      if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+      return message.reply("You can\'t do that!");
+      if(!user)
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
+      // or the person who made the command: let member = message.member;
+      if(!reason) reason = "No reason provided";
+      client.channels.get("618125415134920848").send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Warning Action",
+        fields: [{
+            name: "Moderator",
+            value: `${message.author.tag}`
+          },
+          {
+            name: "User warned",
+            value: `${user}`
+          },
+          {
+            name: "Reason",
+            value: `${reason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Snoopy Worker"
+        }
+      }
+    });
+    message.channel.send({embed: {
+      color: 15844367,
+      author: {
+        name: client.user.username,
+        icon_url: client.user.avatarURL
+      },
+      title: "WARNING",
+          fields: [{
+          name: "Warning!",
+          value: `**${message.author.tag}**, User ${user} has been warned for **${reason}**.`
+        }
+      ],
+      footer: {
+        icon_url: client.user.avatarURL,
+        text: "Warning Action"
+      }
+    }
+  });;
+  } else
+  if(message.content.startsWith(config.prefix + "reportmember")) {
+    let reason = args.slice(1).join(' ');
+    let user = message.mentions.members.first();
+    if(!user)
+    return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
+    if(!reason) 
+    return message.reply("Please supply a reason!!");
+    message.delete();
+    client.channels.get("618125415134920848").send({embed: {
+      color: 3447003,
+      author: {
+        name: client.user.username,
+        icon_url: client.user.avatarURL
+      },
+      title: "Report Member Action",
+      fields: [{
+          name: "Member",
+          value: `${message.author.tag}`
+        },
+        {
+          name: "User reported",
+          value: `${user}`
+        },
+        {
+          name: "Reason",
+          value: `${reason}`
+        }
+      ],
+      timestamp: new Date(),
+      footer: {
+        icon_url: client.user.avatarURL,
+        text: "Snoopy Worker"
+      }
+    }
+  });
+  message.channel.send({embed: {
+    color: 15844367,
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "Report Member Action",
+    description: "Report Member",
+    fields: [{
+        name: "Member Report",
+        value: `**${message.author.tag}**, The user has been reported to staff! Thank you!`
+      }
+    ],
+    footer: {
+      icon_url: client.user.avatarURL,
+      text: "Report Member Action"
+    }
+  }
+});;
+  } else
     if (message.content.startsWith(config.prefix + "hot")) {
         message.channel.send("https://media.giphy.com/media/JwLY4ToQwe4yA/giphy.gif")
     } else
@@ -139,15 +474,23 @@ client.on("message", message => {
               },
               {
                 name: "Utility Commands",
-                value: "help, info, say, apicheck, latency, membercount, channelcount."
+                value: "help, info, say, apicheck, latency, membercount, channelcount, welcomeOSmsg, reportmember."
               },
               {
-                name: "Mod Commands",
-                value: "kick, ban, purge, mute, unmute."
+                name: "CrystelianOS Moderation",
+                value: "kick, ban, purge, mute, unmute, grant, ungrant, warn."
               },
               {
                 name: "Roleplay Commands",
                 value: "shoot, wigsnatch."
+              },
+              {
+                name: "SNOOPY AGENCY",
+                value: "hitlist."
+              },
+              {
+                name: "Patch Log",
+                value: "Hello. This is where every change made in the new update will be in! WELCOME TO SNOOPY WORKER 2.0!!!"
               }
             ],
             footer: {
@@ -162,6 +505,9 @@ client.on("message", message => {
       let sex = args[1];
       let location = args[2];
       message.channel.send(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
+    } else
+    if (message.content.startsWith("Test", "Test2")) {
+      message.reply("Your test has been accepted!")
     } else
     if(message.content.startsWith(config.prefix + 'info')) {
         message.channel.send({embed: {
@@ -191,7 +537,12 @@ client.on("message", message => {
       {
         name: "Discord.js",
         value: "This bot was made using [Discord.js](https://discord.js.org/#/)!"
+      },
+      {
+        name: "OS",
+        value: "Running on **CrystelianOS**"
       }
+
     ],
     footer: {
       icon_url: client.user.avatarURL,
@@ -244,15 +595,15 @@ client.on("message", message => {
           // This command must be limited to mods and admins. In this example we just hardcode the role names.
           // Please read on Array.some() to understand this bit: 
           // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-          if(!message.member.roles.some(r=>["Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-            return message.reply("Sorry, you don't have permissions to use this!");
+          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+            return message.reply("You can\'t do that!");
           
           // Let's first check if we have a member and if we can kick them!
           // message.mentions.members is a collection of people that have been mentioned, as GuildMembers.
           // We can also support getting the member by ID, which would be args[0]
           let member = message.mentions.members.first() || message.guild.members.get(args[0]);
           if(!member)
-            return message.reply("Please mention a valid member of this server");
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
           if(!member.kickable) 
             return message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
           
@@ -276,8 +627,8 @@ client.on("message", message => {
                   value: `${message.author.tag}`
                 },
                 {
-                  name: "User Banned",
-                  value: `${member.user.tag}`
+                  name: "User kicked",
+                  value: `${user}`
                 },
                 {
                   name: "Reason",
@@ -297,12 +648,12 @@ client.on("message", message => {
         if(command === "ban") {
           // Most of this command is identical to kick, except that here we'll only let admins do it.
           // In the real world mods could ban too, but this is just an example, right? ;)
-          if(!message.member.roles.some(r=>["Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-            return message.reply("Sorry, you don't have permissions to use this!");
+          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+            return message.reply("You can\'t do that!");
           
           let member = message.mentions.members.first();
           if(!member)
-            return message.reply("Please mention a valid member of this server");
+            return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
           if(!member.bannable) 
             return message.reply("I cannot ban this user! Do they have a higher role? Do I have ban permissions?");
       
@@ -310,7 +661,7 @@ client.on("message", message => {
           if(!reason) reason = "No reason provided";
           
           await member.ban(reason)
-            .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`));
+            .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`))
             message.channel.send({embed: {
               color: 3447003,
               author: {
@@ -323,8 +674,8 @@ client.on("message", message => {
                   value: `${message.author.tag}`
                 },
                 {
-                  name: "User Banned",
-                  value: `${member.user.tag}`
+                  name: "User banned",
+                  value: `${user}`
                 },
                 {
                   name: "Reason",
@@ -342,8 +693,8 @@ client.on("message", message => {
         
         if(command === "purge") {
           // This command removes all messages from all users in the channel, up to 100.
-          if(!message.member.roles.some(r=>["Mod", "Head Mod", "Admin", "Head Admin", "Manager", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-            return message.reply("Sorry, you don't have permissions to use this!");
+          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+            return message.reply("You can\'t do that!");
           // get the delete count, as an actual number.
           const deleteCount = parseInt(args[0], 10);
           
@@ -357,3 +708,45 @@ client.on("message", message => {
             .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
         }
       });
+
+
+//"server rules",
+//"please abide by these rules in order to allow for everyone to have a good time ! :lovebongocat:",
+      
+//"☆ no spamming!",
+//"spam tagging, copypasta, purposeful character spam, raids, etc.",
+
+//"☆ use appropriate channels!",
+//"keep bot commands and media in the correct channels!",
+
+//"☆ no nsfw!",
+//"please refrain from anything nsfw in the server!",
+
+//"☆ be respectful of others!",
+//"bullying is not tolerated [bullying is a REPETITIVE action]",
+//"racism, homophobia, harassment, etc. [any type of discrimination] is not allowed",
+//"keep arguments outside of the server",
+//"do not leak personal information without consent",
+
+//"☆ use common sense!",
+//"if you feel its not allowed, don't do it",
+      
+//"☆ punishment is by staff jurisdiction",
+//"do not argue with staff !",
+//"if you feel unfairly punished, feel free to reach out to a staff member!",
+      
+//"☆ try not to queue long songs/earrape songs if others are listening along",
+//"unless consent is given!",
+      
+//"☆please refrain from earraping in the general voice channel",
+//"blowing into your microphone, using a loud voice changer, etc.",
+//"unless consent is given!",
+      
+//"☆ rules are subject to change",
+//"make sure you know about any updated/added rules",
+      
+//"☆ have fun!!",
+      
+//"☆ abide by the discord tos!",
+//"[for reference ]",
+//"https://discordapp.com/guidelines"
