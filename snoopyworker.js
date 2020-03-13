@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 const fs = require("fs");
-client.login("NjgyNDU1MjAwMjEyMDU4MTQ0.XlmNcg.emhFhhHyvTqz5aq45RJSKUfatk4") // Replace XXXXX with your bot token
+client.login("*replace with real token*") // Replace XXXXX with your bot token
 
 client.on('ready', () => {
     // Set bot status to: "Playing with JavaScript"
