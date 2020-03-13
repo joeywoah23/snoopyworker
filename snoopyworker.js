@@ -14,7 +14,7 @@ client.on('ready', () => {
     // client.user.setActivity("TV", {type: "WATCHING"})
 })
 
-console.log("Snoopy Worker has loaded!")
+console.log("Snoopy Worker has loaded... Commands have been queued...")
 client.on("message", message => {
     if (message.author.bot) return;
     // This is where we'll put our code.
@@ -25,7 +25,7 @@ client.on("message", message => {
     const talkedRecently = new Set();
     if(command === "say") {
     if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-        return message.reply("Sorry, you don't have permissions to use this!");
+        return message.reply("You can\'t do that!");
         let text = args.join(" ");
         message.delete();
         message.channel.send(text);
@@ -33,7 +33,7 @@ client.on("message", message => {
     if(command === "apicheck") {
       message.channel.send({embed: {
         color: 15844367,
-        description: `Api Latency is **${Math.round(client.ping)}**ms`
+        description: `API Latency is **${Math.round(client.ping)}**ms!`
       }});
     } else
     if(command === "shoot") {
@@ -105,9 +105,7 @@ client.on("message", message => {
         }
       }
     });;
-
-
-    }
+    } else
     if (message.content.startsWith(config.prefix + 'tea')) {
         message.channel.send('https://gph.is/1IFn5eh')
     } else
@@ -132,7 +130,7 @@ client.on("message", message => {
       // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
       let member = message.mentions.members.first();
       if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-      return message.reply("Sorry, you don't have permissions to use this!");
+      return message.reply("You can\'t do that!");
       if(!member)
             return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
       // or the person who made the command: let member = message.member;
@@ -169,15 +167,15 @@ client.on("message", message => {
     });
     } else
     if (message.content.startsWith(config.prefix + "grant")) {
-      let reason = args.slice(1).join(' ');
-          if(!reason)
+      let role = args.slice(1).join(' ');
+          if(!role)
           return message.reply("Please mention a valid role to grant!");
-      let role = message.guild.roles.find(r => r.name === `${reason}`);
+      let role = message.guild.roles.find(r => r.name === `${role}`);
     
       // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
       let member = message.mentions.members.first();
       if(!message.member.roles.some(r=>["《Developer》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-      return message.reply("Sorry, you don't have permissions to use this!");
+      return message.reply("You can\'t do that!");
       if(!member)
             return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
       // or the person who made the command: let member = message.member;
@@ -201,7 +199,7 @@ client.on("message", message => {
           },
           {
           name: "Role Granted",
-            value: `${reason}`
+            value: `${role}`
           }
         ],
         timestamp: new Date(),
@@ -213,15 +211,15 @@ client.on("message", message => {
     });
   } else
   if (message.content.startsWith(config.prefix + "ungrant")) {
-    let reason = args.slice(1).join(' ');
-        if(!reason)
+    let role = args.slice(1).join(' ');
+        if(!role)
         return message.reply("Please mention a valid role to ungrant!");
-    let role = message.guild.roles.find(r => r.name === `${reason}`);
+    let role = message.guild.roles.find(r => r.name === `${role}`);
   
     // Let's pretend you mentioned the user you want to add a role to (!addrole @user Role Name):
     let member = message.mentions.members.first();
     if(!message.member.roles.some(r=>["《Developer》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
-    return message.reply("Sorry, you don't have permissions to use this!");
+    return message.reply("You can\'t do that!");
     if(!member)
           return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
     // or the person who made the command: let member = message.member;
@@ -245,7 +243,7 @@ client.on("message", message => {
         },
         {
         name: "Role Ungranted",
-          value: `${reason}`
+          value: `${role}`
         }
       ],
       timestamp: new Date(),
@@ -490,7 +488,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
               },
               {
                 name: "Patch Log",
-                value: "Hello. This is where every change made in the new update will be in! WELCOME TO SNOOPY WORKER 2.0!!!"
+                value: "After learning many things I have learned coding this bot I am now making many changes to embeds and more on this bot! This bot will be tested before letting it operate in this server!"
               }
             ],
             footer: {
@@ -505,9 +503,6 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
       let sex = args[1];
       let location = args[2];
       message.channel.send(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
-    } else
-    if (message.content.startsWith("Test", "Test2")) {
-      message.reply("Your test has been accepted!")
     } else
     if(message.content.startsWith(config.prefix + 'info')) {
         message.channel.send({embed: {
@@ -595,7 +590,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
           // This command must be limited to mods and admins. In this example we just hardcode the role names.
           // Please read on Array.some() to understand this bit: 
           // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+          if(!message.member.roles.some(r=>["《Developer》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
             return message.reply("You can\'t do that!");
           
           // Let's first check if we have a member and if we can kick them!
@@ -605,7 +600,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
           if(!member)
             return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
           if(!member.kickable) 
-            return message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
+            return message.reply("There was an error kicking this user!");
           
           // slice(1) removes the first part, which here should be the user mention or ID
           // join(' ') takes all the various parts to make it a single string.
@@ -628,7 +623,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
                 },
                 {
                   name: "User kicked",
-                  value: `${user}`
+                  value: `${member}`
                 },
                 {
                   name: "Reason",
@@ -648,14 +643,14 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
         if(command === "ban") {
           // Most of this command is identical to kick, except that here we'll only let admins do it.
           // In the real world mods could ban too, but this is just an example, right? ;)
-          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+          if(!message.member.roles.some(r=>["《Developer》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
             return message.reply("You can\'t do that!");
           
           let member = message.mentions.members.first();
           if(!member)
             return message.reply("**CrystelianOS** syntax error: Argument Missing: Please mention a valid member of the server!");
           if(!member.bannable) 
-            return message.reply("I cannot ban this user! Do they have a higher role? Do I have ban permissions?");
+            return message.reply("There was an error banning this user!");
       
           let reason = args.slice(1).join(' ');
           if(!reason) reason = "No reason provided";
@@ -675,7 +670,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
                 },
                 {
                   name: "User banned",
-                  value: `${user}`
+                  value: `${member}`
                 },
                 {
                   name: "Reason",
@@ -693,7 +688,7 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
         
         if(command === "purge") {
           // This command removes all messages from all users in the channel, up to 100.
-          if(!message.member.roles.some(r=>["《Developer》", "《Trial Mod》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
+          if(!message.member.roles.some(r=>["《Developer》", "《Mod》", "《Head Mod》", "《Admin》", "《Head Admin》", "《Manager》", "Maid", "Riley", "Dark", "Frosty"].includes(r.name)) )
             return message.reply("You can\'t do that!");
           // get the delete count, as an actual number.
           const deleteCount = parseInt(args[0], 10);
@@ -709,6 +704,9 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
         }
       });
 
+console.log("All Moderation, Fun, Roleplay, and Agent commands have been loaded!")
+console.log("Snoopy Worker is now ready for use!")
+console.log("I have logged in! If at any time I crash please come back and check these logs!")
 
 //"server rules",
 //"please abide by these rules in order to allow for everyone to have a good time ! :lovebongocat:",
