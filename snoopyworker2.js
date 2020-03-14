@@ -522,8 +522,8 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
         value: "```RUNNING ON VERSION 2.0 OF CRYSTELIANOS 3.0```"
       },
       {
-        name: "Markdown",
-        value: "Visit the [GITHUB PAGE]("")
+        name: "Snoopy Worker Code",
+        value: "Visit the [GITHUB PAGE]("https://github.com/joeywoah23/snoopyworker")
       }
     ],
     timestamp: new Date(),
