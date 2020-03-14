@@ -504,6 +504,35 @@ if (message.content.startsWith(config.prefix + "hitlist")) {
       let location = args[2];
       message.channel.send(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
     } else
+    if (message.content.startsWith(config.prefix + 'version')) {
+        message.channel.send({embed: {
+    color: 3447003,
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "CrystelianOS x Snoooy Worker",
+    description: "This embed shows the version both bots and OS' are on!",
+    fields: [{
+        name: "CrystelianOS",
+        value: "```RUNNING ON VERSION 3.0 OF CRYPTO.```"
+      },
+      {
+        name: "Snoopy Worker",
+        value: "```RUNNING ON VERSION 2.0 OF CRYSTELIANOS 3.0```"
+      },
+      {
+        name: "Markdown",
+        value: "Visit the [GITHUB PAGE]("")
+      }
+    ],
+    timestamp: new Date(),
+    footer: {
+      icon_url: client.user.avatarURL,
+      text: "© Example"
+    }
+  }
+});
     if(message.content.startsWith(config.prefix + 'info')) {
         message.channel.send({embed: {
         color: 15844367,
